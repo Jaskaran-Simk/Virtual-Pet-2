@@ -18,9 +18,9 @@ function setup() {
   
   database = firebase.database()
   foodStock = database.ref('food');
-  foodStock.on("value",readStock);
+  //foodStock.on("value",readStock);
 
-  var dog = createSprite(200,200,50,50)
+  dog = createSprite(200,200,50,50)
   dog.addImage(dogImg)
   dog.scale = 0.2
   
@@ -32,8 +32,8 @@ function draw() {
   background(46,139,87)
 
   if(keyWentDown(UP_ARROW)){
-    //writeStock(foodS);
-    dog.addImage(dogHappy);
+   // writeStock(foodS);
+    dog.addImage(ImgDog);
   }
 
   drawSprites();
@@ -41,26 +41,27 @@ function draw() {
   textSize(20)
   fill("black")
   stroke("white")
-  text("Note: Press UP_ARROW Key To Feed Drago Milk!",100,100)
+  text("Note: Press UP_ARROW Key To Feed Drago Milk!",50,100)
+  text("food Availabe: " + foodS, 100, 400 )
   
 }
 
 //function to read value from db
-function readStock(){
+function readStock(data){
   foodS = data.val();
 }
 
 //function to write values in db
 function writeStock(x){
 
-  /*if(x<=0){
+  if(x<=0){
     x=0;
   }else{
-    x=x-1;
-  }*/
+    x=x -1;
+  }
 
   database.ref('/').update({
-
+  food: x
   })
 }
 
